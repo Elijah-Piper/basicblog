@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h2> Author Profile: {{ author.name }}</h2>
+	<br>
+	<p>Username: {{ author.account_username }}</p>
+	<p>Bio: {{ author.bio }}</p>
+	<p><strong>Posts:</strong></p>
+	{% for post in author.post_set.all %}
+		<hr>
+		<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+		<p>{{ post.posted }}</p>
+	{% endfor %}
+{% endblock %}

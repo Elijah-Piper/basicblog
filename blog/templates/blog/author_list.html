@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>Blog Authors</h1>
+	{% if author_list %}
+		{% for author in author_list %}
+			<hr>
+			<p>
+				<h5><a href="{{ author.get_absolute_url }}">{{ author.name }}</a></h5> - 
+				Number of posts: {{ author.post_set.all.count }}
+			</p>
+		{% endfor %}
+	{% else %}
+		<p>There are no authors to display.</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>{{ post.title }}</h1>
+	<p>
+		<a href="{{ post.author.get_absolute_url }}">{{ post.author.name }}</a> 
+		({{ post.author.account_username }}) - 
+		{{ post.posted }}
+	</p>
+	<p>{{ post.text }}</p>
+	<br>
+	<!-- Comment Section -->
+	<h5>Comments: ({{ post.comment_set.all.count }})</h5>
+	{% if user.is_authenticated %}
+		<a href="{% url 'comment-create' %}">Add a comment</a>
+	{% else %}
+		<a href="">Login to add a comment</a>
+	{% endif %}
+	<hr style="background-color:black">
+	{% if post.comment_set %}
+		{% for comment in post.comment_set.all %}
+			<p>
+				{{ comment.posted }} - 
+				<strong>{{ comment.username }}</strong>
+			</p>
+			<hr>
+			{{ comment.text }}
+			<hr style="background-color:black">
+		{% endfor %}
+	{% endif %}
+{% endblock %}
