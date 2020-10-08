@@ -23,8 +23,13 @@
 							<hr>
 							{% if user.is_authenticated %}
 								<li><strong>User:</strong> {{ user.get_username }}</li>
+								{% if perms.blog.can_post %}
+									<a href="{% url 'post-create' %}">New Post</a>
+								{% endif %}
+								<a href="{% url 'logout' %}">Logout</a>
 								<!-- Additional sidebar user specfic info goes here -->
 							{% else %}
+								<a href="{% url 'login' %}">Login</a>
 								<!-- Login Link will go here -->
 							{% endif %}
 						</ul>
