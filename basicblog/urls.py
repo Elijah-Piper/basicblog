@@ -24,3 +24,8 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('', RedirectView.as_view(url='blog/', permanent=True)),
 ]
+
+# Routes all site authentication (login, logout, password management)
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls'))
+]
