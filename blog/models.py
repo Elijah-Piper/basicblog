@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Author(models.Model):
@@ -7,7 +8,7 @@ class Author(models.Model):
 		max_length=50,
 		help_text="The user permissioned user account associated with this author"
 	)
-
+	
 	name = models.CharField(
 		max_length=50,
 		help_text="The name displayed for this author"
@@ -31,7 +32,7 @@ class Author(models.Model):
 class Post(models.Model):
 	"""Model for an individual blog post."""
 	# One to many-to-many relationship; one author to many blog posts
-	author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+	author = models.ForeignKey('Author', on_delete=models.CASCADE, null=True)
 
 	title = models.CharField(
 		max_length=60,
@@ -39,7 +40,7 @@ class Post(models.Model):
 	)
 
 	# The date published
-	posted = models.DateTimeField(auto_now=True, null=True, blank=True)
+	posted = models.DateTimeField(auto_now=True, null=True, blank=True, editable=False)
 
 	# The text body of the blog post
 	text = models.TextField(
@@ -65,7 +66,7 @@ class Comment(models.Model):
 	)
 
 	# The date published
-	posted = models.DateTimeField(auto_now=True, null=True, blank=True)
+	posted = models.DateTimeField(auto_now=True, null=True, blank=True, editable=False)
 
 	# The text body of the comment to be displayed
 	text = models.TextField(
