@@ -19,6 +19,11 @@ class AuthorModelTest(TestCase):
 		abs_url = author.get_absolute_url()
 		self.assertEqual(abs_url, '/blog/authors/1')
 
+	def test_bio_max_length(self):
+		author = Author.objects.get(id=1)
+		max_length = author._meta.get_field('bio').max_length
+		self.assertEqual(max_length, 1000)
+
 
 class PostModelTest(TestCase):
 	@classmethod
